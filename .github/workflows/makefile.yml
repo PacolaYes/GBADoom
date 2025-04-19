@@ -13,10 +13,14 @@ jobs:
     - name: "get devkitpro pls"
       run: |
         wget https://apt.devkitpro.org/install-devkitpro-pacman
+        echo "Action - Got file!"
         chmod +x ./install-devkitpro-pacman
+        echo "Action - Made file executable!"
         sudo ./install-devkitpro-pacman
-        exit
+        echo "Action - Installed pacman."
         sudo dkp-pacman --noconfirm -S gba-dev
+        echo "Action - Got the GBA stuff"
+        exec bash
     - name: DO IT, JUST DO IT
       run: |
         export DEVKITPRO=/opt/devkitpro
