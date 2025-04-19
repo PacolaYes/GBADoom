@@ -17,7 +17,7 @@ jobs:
       run: | # does this do the job?
         docker image pull devkitpro/devkitarm
     - name: DO IT, JUST DO IT
-      run: docker run -i --rm -v $(pwd):/${GITHUB_WORKSPACE} --user "$(id -u):$(id -g)" devkitpro/devkitarm -l -c "make"
+      run: docker run -i --rm -v $(pwd):/${GITHUB_WORKSPACE} --user "$(id -u):$(id -g)" devkitpro/devkitarm:latest -l -c "make"
     - name: "send it, cmon"
       uses: actions/upload-artifact@v4
       with:
