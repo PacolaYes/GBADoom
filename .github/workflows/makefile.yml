@@ -14,13 +14,10 @@ jobs:
       uses: docker/setup-docker-action@v4
 
     - name: "get devkitarm pls"
-      run: |
-        git clone https://github.com/redthing1/dkarm_gba_docker.git
-        cd dkarm_gba_docker
-        make docker-build
-        cd ../
+      run: | # does this do the job?
+        docker image pull devkitpro/devkitarm
     - name: DO IT, JUST DO IT
-      run: docker run -i --rm -v $(pwd):/source --user "$(id -u):$(id -g)" dkarm_base:local -l -c "make"
+      run: docker run -i --rm -v $(pwd):/${GITHUB_WORKSPACE} --user "$(id -u):$(id -g)" devkitpro/devkitarm -l -c "make"
     - name: "send it, cmon"
       uses: actions/upload-artifact@v4
       with:
