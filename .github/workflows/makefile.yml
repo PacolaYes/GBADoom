@@ -15,7 +15,7 @@ jobs:
         wget https://apt.devkitpro.org/install-devkitpro-pacman
         chmod +x ./install-devkitpro-pacman
         sudo ./install-devkitpro-pacman
-        logout
+        exit
         sudo dkp-pacman --noconfirm -S gba-dev
     - name: DO IT, JUST DO IT
       run: |
