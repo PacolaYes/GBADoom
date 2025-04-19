@@ -17,7 +17,7 @@ jobs:
       run: |
         git clone https://github.com/redthing1/dkarm_gba_docker.git
         cd dkarm_gba_docker
-        make
+        make docker-build
         cd ../
     - name: DO IT, JUST DO IT
       run: docker run -it --rm -v $(pwd):/source --user "$(id -u):$(id -g)" dkarm_base:local -l -c "make"
