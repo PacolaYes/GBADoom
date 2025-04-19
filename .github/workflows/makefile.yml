@@ -25,5 +25,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: GBASRB2
-        path: GBADoom.gba
+        path: source.gba
 
