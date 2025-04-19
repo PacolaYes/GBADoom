@@ -15,6 +15,7 @@ jobs:
         wget https://apt.devkitpro.org/install-devkitpro-pacman
         chmod +x ./install-devkitpro-pacman
         sudo ./install-devkitpro-pacman
+        sleep 1m
         exec bash
         sudo dkp-pacman --noconfirm -S gba-dev
         exec bash
