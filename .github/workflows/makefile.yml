@@ -15,7 +15,9 @@ jobs:
         wget https://apt.devkitpro.org/install-devkitpro-pacman
         chmod +x ./install-devkitpro-pacman
         sudo ./install-devkitpro-pacman
+        exec bash
         sudo dkp-pacman --noconfirm -S gba-dev
+        exec bash
     - name: DO IT, JUST DO IT
       run: make
     - name: "send it, cmon"
