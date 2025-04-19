@@ -1,0 +1,31 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Get Dependencies
+      run: |
+        wget https://apt.devkitpro.org/install-devkitpro-pacman
+        chmod +x ./install-devkitpro-pacman
+        sudo ./install-devkitpro-pacman
+        sudo dkp-pacman -S gba-dev
+      
+    - name: run make plsplspls
+      run: | 
+        make
+    
+    - name: send thing to the action tab
+      uses: actions/upload-artifact@v4
+      with:
+        name: gbasrb2
+        path: GBADoom.gba
