@@ -20,7 +20,7 @@ jobs:
         make
         cd ../
     - name: DO IT, JUST DO IT
-      run: docker run -it --rm -v $(pwd):/source --user "$(id -u):$(id -g)" dkarm_base:local -l -c make
+      run: docker run -it --rm -v $(pwd):/source --user "$(id -u):$(id -g)" dkarm_base:local -l -c "make"
     - name: "send it, cmon"
       uses: actions/upload-artifact@v4
       with:
