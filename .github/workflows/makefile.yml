@@ -10,22 +10,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Set up Docker
+      uses: docker/setup-docker-action@v4
+
     - name: "get devkitpro pls"
       run: |
-        wget https://apt.devkitpro.org/install-devkitpro-pacman
-        echo "Action - Got file!"
-        chmod +x ./install-devkitpro-pacman
-        echo "Action - Made file executable!"
-        sudo ./install-devkitpro-pacman
-        echo "Action - Installed pacman."
-        sudo dkp-pacman --noconfirm -S gba-dev
-        echo "Action - Got the GBA stuff"
-        exec bash
-    - name: DO IT, JUST DO IT
-      run: |
-        export DEVKITPRO=/opt/devkitpro
-        export DEVKITARM=/opt/devkitpro/devkitARM
+        git clone https://github.com/redthing1/dkarm_gba_docker.git
+        cd dkarm_gba_docker
         make
+        cd ../
+    - name: DO IT, JUST DO IT
+      run: docker run -it --rm -v $(pwd):/source --user "$(id -u):$(id -g)" dkarm_base:local -l -c make
     - name: "send it, cmon"
       uses: actions/upload-artifact@v4
       with:
