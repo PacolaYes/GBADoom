@@ -286,6 +286,7 @@ boolean P_CanPlayerDamage(player_t* player)
 {
   if (player->pflags & PF_JUMPED)
     return true;
+  return false;
 }
 
 //

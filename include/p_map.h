@@ -73,4 +73,7 @@ boolean Check_Sides(mobj_t *, int, int);                    // phares
 void	P_MapStart(void);
 void	P_MapEnd(void);
 
+void P_EnemyCollide(mobj_t *enemy, player_t *player);
+boolean P_VerticalCollide(mobj_t *mo);
+
 #endif // __P_MAP__

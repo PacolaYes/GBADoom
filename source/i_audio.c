@@ -265,6 +265,7 @@ static const audio_map_t soundMap[NUMSFX] =
     {sfx_skesit, SFX_DSSKESIT},
     {sfx_skeatk, SFX_DSSKEATK},
     {sfx_radio, SFX_DSRADIO},
+    {sfx_jump, SFX_DSJUMP},
 };
 
 #endif

@@ -220,6 +220,37 @@ static int untouched(const line_t *ld)
     P_BoxOnLineSide(tmbbox, ld) != -1;
 }
 
+// P_EnemyCollide
+//
+// Triggers the results of an enemy-player collision.
+void P_EnemyCollide(mobj_t *enemy, player_t *player)
+{
+  if (P_CanPlayerDamage(player))
+    P_DamageMobj(enemy, player->mo, player->mo, 1);
+  else
+    P_DamageMobj(player->mo, enemy, enemy, 1);
+}
+
+// P_VerticalCollide
+//
+// Returns if mo isn't colliding with _g->tmthing in the Z axis
+boolean P_VerticalCollide(mobj_t *mo)
+{
+  fixed_t blockdist;
+  mobj_t *mobj = _g->tmthing;
+
+  blockdist = mo->radius + mobj->radius;
+
+  if (D_abs(mo->x - mobj->x) >= blockdist || D_abs(mo->y - mobj->y) >= blockdist)
+    return true; // didn't hit it
+
+  if (mo->z <= mobj->z + mobj->height // if you aren't above the object
+    && mo->z + mo->height > mobj->z) // and you aren't below it either
+    return false; // then you're colliding :P
+
+  return true;
+}
+
 //
 // PIT_CheckLine
 // Adjusts tmfloorz and tmceilingz as lines are contacted
@@ -312,7 +343,6 @@ boolean PIT_CheckLine (const line_t* ld)
 static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
 {
   fixed_t blockdist;
-  fixed_t verticaldist;
   player_t *player;
   int damage;
 
@@ -325,10 +355,13 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
   if (D_abs(thing->x - _g->tmx) >= blockdist || D_abs(thing->y - _g->tmy) >= blockdist)
     return true; // didn't hit it
 
-  verticaldist = thing->height + _g->tmthing->height;
+  // copy MF_MISSILE collision check, just so it exists :P
+  if (_g->tmthing->z > thing->z + thing->height)
+    return true;    // overhead
 
-  if (D_abs(thing->z - _g->tmthing->z) >= verticaldist)
-    return true; // don't collide if you're above/below the object?
+  if (_g->tmthing->z+_g->tmthing->height < thing->z)
+    return true;    // underneath
+  
 
   // killough 11/98:
   //
@@ -365,12 +398,12 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
   if (_g->tmthing->flags & MF_MISSILE)
     {
       // see if it went over / under
-
+      /*
       if (_g->tmthing->z > thing->z + thing->height)
   return true;    // overhead
 
       if (_g->tmthing->z+_g->tmthing->height < thing->z)
-  return true;    // underneath
+  return true;    // underneath */
 
       if (_g->tmthing->target && (_g->tmthing->target->type == thing->type ||
     (_g->tmthing->target->type == MT_KNIGHT && thing->type == MT_BRUISER)||
@@ -420,16 +453,17 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
       unsigned int solid = thing->flags & MF_SOLID;
       if ((thing->flags & MF_ENEMY) && P_MobjIsPlayer(_g->tmthing))
       {
-        player = P_MobjIsPlayer(_g->tmthing);
-        if (P_CanPlayerDamage(player))
-          P_DamageMobj(thing, _g->tmthing, _g->tmthing, 1);
-        else
-          P_DamageMobj(_g->tmthing, thing, thing, 1);
+        P_EnemyCollide(thing, P_MobjIsPlayer(_g->tmthing));
       }
       else if (_g->tmthing->flags & MF_PICKUP)
         P_TouchSpecialThing(thing, _g->tmthing); // can remove thing
       return !solid;
     }
+
+  if (_g->tmthing->flags & (MF_SPECIAL|MF_ENEMY) && P_MobjIsPlayer(thing))
+  {
+    P_EnemyCollide(_g->tmthing, P_MobjIsPlayer(thing));
+  }
 
   // killough 3/16/98: Allow non-solid moving objects to move through solid
   // ones, by allowing the moving thing (tmthing) to move if it's non-solid,
