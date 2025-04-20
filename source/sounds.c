@@ -156,4 +156,5 @@ const sfxinfo_t S_sfx[] = {
   { "skesit", false, 70, 0, -1, 38 },
   { "skeatk", false, 70, 0, -1, 47 },
   { "radio", false, 60, 0, -1, 8 },
+  { "jump", false, 60, 0, -1, 28 },
 };

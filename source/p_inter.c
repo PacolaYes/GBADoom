@@ -758,8 +758,9 @@ void P_DamageMobj(mobj_t *target,mobj_t *inflictor, mobj_t *source, int damage)
           damage -= saved;
         }
 
-      player->health -= damage;       // mirror mobj health here for Dave
-      if (player->health < 0)
+      if (player->health > 1) // W.I.P Ring System -pac
+        player->health = 1;
+      else
         player->health = 0;
 
       player->attacker = source;
