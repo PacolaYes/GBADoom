@@ -421,7 +421,7 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
       if ((thing->flags & MF_ENEMY) && P_MobjIsPlayer(_g->tmthing))
       {
         player = P_MobjIsPlayer(_g->tmthing);
-        if (P_PlayerCanDamage(player))
+        if (P_CanPlayerDamage(player))
           P_DamageMobj(thing, _g->tmthing, _g->tmthing, 1);
         else
           P_DamageMobj(_g->tmthing, thing, thing, 1);
