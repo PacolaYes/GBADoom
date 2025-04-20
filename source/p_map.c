@@ -458,9 +458,7 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
     {
       unsigned int solid = thing->flags & MF_SOLID;
       if ((thing->flags & MF_ENEMY) && P_MobjIsPlayer(_g->tmthing))
-      {
         P_EnemyCollide(thing, P_MobjIsPlayer(_g->tmthing));
-      }
       else if (_g->tmthing->flags & MF_PICKUP)
         P_TouchSpecialThing(thing, _g->tmthing); // can remove thing
       return !solid;
@@ -468,7 +466,9 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
 
   if (_g->tmthing->flags & (MF_SPECIAL|MF_ENEMY) && P_MobjIsPlayer(thing))
   {
+    unsigned int solid = thing->flags & MF_SOLID;
     P_EnemyCollide(_g->tmthing, P_MobjIsPlayer(thing));
+    return !solid;
   }
 
   // killough 3/16/98: Allow non-solid moving objects to move through solid
