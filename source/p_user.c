@@ -276,6 +276,7 @@ static void P_DeathThink (player_t* player)
 void P_DoJump(player_t* player)
 {
   player->mo->momz = 12*FRACUNIT; //temporary basic jump
+  S_StartSound(player->mo, sfx_jump);
 }
 
 //

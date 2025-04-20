@@ -260,6 +260,7 @@ typedef enum {
   sfx_skesit,
   sfx_skeatk,
   sfx_radio,
+  sfx_jump,
   NUMSFX
 } sfxenum_t;
 
