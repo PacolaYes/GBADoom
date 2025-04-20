@@ -303,23 +303,7 @@ void P_ZMovement (mobj_t* mo)
 
   // clip movement
 
-  // handle vertical object collision -pac
-  // def not copied from P_CheckPosition -pac
-  int xl, xh;
-  int yl, yh;
-  int bx, by;
-  boolean ontop;
-  xl = (_g->tmbbox[BOXLEFT] - _g->bmaporgx - MAXRADIUS)>>MAPBLOCKSHIFT;
-  xh = (_g->tmbbox[BOXRIGHT] - _g->bmaporgx + MAXRADIUS)>>MAPBLOCKSHIFT;
-  yl = (_g->tmbbox[BOXBOTTOM] - _g->bmaporgy - MAXRADIUS)>>MAPBLOCKSHIFT;
-  yh = (_g->tmbbox[BOXTOP] - _g->bmaporgy + MAXRADIUS)>>MAPBLOCKSHIFT;
-
-  _g->tmthing = mo; // variable that is 100% intended for this -pac
-  for (bx=xl ; bx<=xh ; bx++)
-    for (by=yl ; by<=yh ; by++)
-      ontop = (!(P_BlockThingsIterator(bx,by,P_VerticalCollide)) && mo->momz <= 0);
-
-  if (mo->z <= mo->floorz || ontop)
+  if (mo->z <= mo->floorz)
     {
     // hit the floor
 
@@ -362,8 +346,7 @@ void P_ZMovement (mobj_t* mo)
       }
   mo->momz = 0;
       }
-    if (!ontop)
-      mo->z = mo->floorz;
+    mo->z = mo->floorz;
 
     if ( (mo->flags & MF_MISSILE) && !(mo->flags & MF_NOCLIP) )
       {
