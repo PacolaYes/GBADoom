@@ -490,74 +490,14 @@ static void CheckIWAD2(const unsigned char* iwad_data, const unsigned int iwad_l
 
     int ud=0,rg=0,sw=0,cm=0,sc=0;
 
-    if(!strncmp(header->identification, "IWAD", 4))
-    {
-        size_t length = header->numlumps;
-        const filelump_t* fileinfo = (const filelump_t*)&iwad_data[header->infotableofs];
-
-        while (length--)
-        {
-            if (fileinfo[length].name[0] == 'E' && fileinfo[length].name[2] == 'M' && fileinfo[length].name[4] == 0)
-            {
-              if (fileinfo[length].name[1] == '4')
-                ++ud;
-              else if (fileinfo[length].name[1] == '3')
-                ++rg;
-              else if (fileinfo[length].name[1] == '2')
-                ++rg;
-              else if (fileinfo[length].name[1] == '1')
-                ++sw;
-            }
-            else if (fileinfo[length].name[0] == 'M' && fileinfo[length].name[1] == 'A' && fileinfo[length].name[2] == 'P' && fileinfo[length].name[5] == 0)
-            {
-              ++cm;
-              if (fileinfo[length].name[3] == '3')
-              {
-                  if (fileinfo[length].name[4] == '1' || fileinfo[length].name[4] == '2')
-                    ++sc;
-              }
-            }
-			//Final Doom IWAD check hacks ~Kippykip
-			//TNT - MURAL1
-			else if (fileinfo[length].name[0] == 'M' && fileinfo[length].name[1] == 'U' && fileinfo[length].name[2] == 'R'  && fileinfo[length].name[3] == 'A' && fileinfo[length].name[4] == 'L' && fileinfo[length].name[5] == '1' && fileinfo[length].name[6] == 0)
-            {
-				*gmode = commercial;
-				_g->gamemission = pack_tnt;
-				_g->gamemode = commercial;
-				return;
-            }
-			//Plutonia - WFALL1
-			else if (fileinfo[length].name[0] == 'W' && fileinfo[length].name[1] == 'F' && fileinfo[length].name[2] == 'A'  && fileinfo[length].name[3] == 'L' && fileinfo[length].name[4] == 'L' && fileinfo[length].name[5] == '1' && fileinfo[length].name[6] == 0)
-            {
-				*gmode = commercial;
-				_g->gamemission = pack_plut;
-				_g->gamemode = commercial;
-				return;
-            }
-        }
-    }
-    else
+    if (!(!strncmp(header->identification, "IWAD", 4)))
     {
         I_Error("CheckIWAD: IWAD tag not present");
     }
 
-    // Determine game mode from levels present
-    // Must be a full set for whichever mode is present
-    // Lack of wolf-3d levels also detected here
-
-    *gmode = indetermined;
+    // force it to be Doom 2, since the SRB2 IWAD is always based on Doom 2 :P -pac
+    *gmode = commercial;
     *hassec = false;
-    if (cm>=30)
-    {
-        *gmode = commercial;
-        *hassec = sc>=2;
-    }
-    else if (ud>=9)
-        *gmode = retail;
-    else if (rg>=18)
-        *gmode = registered;
-    else if (sw>=9)
-        *gmode = shareware;
 }
 
 //
