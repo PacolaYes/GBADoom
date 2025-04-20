@@ -239,6 +239,9 @@ boolean P_VerticalCollide(mobj_t *mo)
   fixed_t blockdist;
   mobj_t *mobj = _g->tmthing;
 
+  if (mo == mobj)
+    return true;
+
   blockdist = mo->radius + mobj->radius;
 
   if (D_abs(mo->x - mobj->x) >= blockdist || D_abs(mo->y - mobj->y) >= blockdist)
@@ -246,7 +249,10 @@ boolean P_VerticalCollide(mobj_t *mo)
 
   if (mo->z <= mobj->z + mobj->height // if you aren't above the object
     && mo->z + mo->height > mobj->z) // and you aren't below it either
+  {
+    _g->tmfloorz = mobj->z+mobj->height; // abusing variables that may or may not break something, hooray!
     return false; // then you're colliding :P
+  }
 
   return true;
 }

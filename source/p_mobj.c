@@ -362,7 +362,10 @@ void P_ZMovement (mobj_t* mo)
       }
   mo->momz = 0;
       }
-    mo->z = mo->floorz;
+    if (ontop)
+      mo->z = _g->tmfloorz;
+    else
+      mo->z = mo->floorz;
 
     if ( (mo->flags & MF_MISSILE) && !(mo->flags & MF_NOCLIP) )
       {
