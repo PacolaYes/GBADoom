@@ -192,8 +192,8 @@ static void P_MovePlayer (player_t* player)
   //e6y
   if ((cmd->forwardmove | cmd->sidemove)) // killough 10/98
     {
-      if (_g->onground) // killough 8/9/98
-      {
+      //if (_g->onground) // killough 8/9/98
+      //{
         int movefactor = ORIG_FRICTION_FACTOR;
 
         if (cmd->forwardmove)
@@ -207,7 +207,7 @@ static void P_MovePlayer (player_t* player)
           P_Bob(player,mo->angle-ANG90,cmd->sidemove*movefactor);
           P_Thrust(player,mo->angle-ANG90,cmd->sidemove*movefactor);
         }
-      }
+      //}
       if (mo->state == states+S_PLAY)
         P_SetMobjState(mo,S_PLAY_RUN1);
     }
