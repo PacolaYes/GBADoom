@@ -1248,7 +1248,7 @@ const mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
   {   // MT_POSSESSED
     3004,   // doomednum
     S_POSS_STND,    // spawnstate
-    20,   // spawnhealth
+    1,   // spawnhealth
     S_POSS_RUN1,    // seestate
     sfx_posit1,   // seesound
     8,    // reactiontime
@@ -1267,7 +1267,7 @@ const mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
     100,    // mass
     0,    // damage
     sfx_posact,   // activesound
-    MF_SOLID|MF_SHOOTABLE|MF_COUNTKILL,   // flags
+    MF_SPECIAL|MF_ENEMY|MF_SHOOTABLE,   // flags
     S_POSS_RAISE1   // raisestate
   },
 

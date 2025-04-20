@@ -277,6 +277,15 @@ void P_DoJump(player_t* player)
 {
   player->mo->momz = 39*(FRACUNIT/4); //temporary basic jump
   S_StartSound(player->mo, sfx_jump);
+  player->pflags |= PF_JUMPED;
+}
+
+// P_CanPlayerDamage
+// checks if a player can damage an enemy
+boolean P_CanPlayerDamage(player_t* player)
+{
+  if (player->pflags & PF_JUMPED)
+    return true;
 }
 
 //
@@ -310,6 +319,12 @@ void P_PlayerThink (player_t* player)
     P_DeathThink (player);
     return;
     }
+
+  // if you've jumped and are either on the ground, or DEAD then uhhh, no you havent
+  if ((_g->onground || player->playerstate == PST_DEAD) && player->pflags & PF_JUMPED)
+  {
+    player->pflags &= ~PF_JUMPED;
+  }
 
   // Move around.
   // Reactiontime is used to prevent movement

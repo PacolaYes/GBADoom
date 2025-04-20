@@ -88,7 +88,11 @@ typedef enum
   CF_ENEMY_ROCKETS    = 8
 
 } cheat_t;
-
+typedef enum
+{
+  // Has the player jumped?
+  PF_JUMPED           = 1
+} pflag_t;
 
 //
 // Extended player object info: player_t
@@ -138,6 +142,9 @@ typedef struct player_s
   int                 weaponowned[NUMWEAPONS];
   int                 ammo[NUMAMMO];
   int                 maxammo[NUMAMMO];
+
+  // Bit flags for well, player stuff :P -pac
+  int                 pflags;
 
   // True if button down last tic.
   int                 attackdown;

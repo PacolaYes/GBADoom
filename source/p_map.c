@@ -311,6 +311,8 @@ boolean PIT_CheckLine (const line_t* ld)
 static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
 {
   fixed_t blockdist;
+  fixed_t verticaldist;
+  player_t *player;
   int damage;
 
   // killough 11/98: add touchy things
@@ -321,6 +323,11 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
 
   if (D_abs(thing->x - _g->tmx) >= blockdist || D_abs(thing->y - _g->tmy) >= blockdist)
     return true; // didn't hit it
+
+  verticaldist = thing->height + _g->tmthing->height;
+
+  if (D_abs(thing->z - _g->tmthing->z) >= verticaldist)
+    return true; // don't collide if you're above/below the object?
 
   // killough 11/98:
   //
@@ -410,8 +417,16 @@ static boolean PIT_CheckThing(mobj_t *thing) // killough 3/26/98: make static
   if (thing->flags & MF_SPECIAL)
     {
       unsigned int solid = thing->flags & MF_SOLID;
-      if (_g->tmthing->flags & MF_PICKUP)
-  P_TouchSpecialThing(thing, _g->tmthing); // can remove thing
+      if ((thing->flags & MF_ENEMY) && P_MobjIsPlayer(_g->tmthing))
+      {
+        player = P_MobjIsPlayer(_g->tmthing);
+        if (P_PlayerCanDamage(player))
+          P_DamageMobj(thing, _g->tmthing, _g->tmthing, 1);
+        else
+          P_DamageMobj(_g->tmthing, thing, thing, 1);
+      }
+      else if (_g->tmthing->flags & MF_PICKUP)
+        P_TouchSpecialThing(thing, _g->tmthing); // can remove thing
       return !solid;
     }
 

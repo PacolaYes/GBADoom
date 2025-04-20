@@ -205,7 +205,7 @@
 #define MF_TRANSSHIFT 26
 
 #define MF_POOLED      (unsigned int)(0x0000000010000000)
-#define MF_UNUSED       (unsigned int)(0x0000000020000000)
+#define MF_ENEMY       (unsigned int)(0x0000000020000000) // enemies, duh
 
     // Translucent sprite?                                          // phares
 #define MF_TRANSLUCENT  (unsigned int)(0x0000000040000000)
