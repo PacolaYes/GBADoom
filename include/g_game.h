@@ -91,7 +91,7 @@ extern const int  key_menu_escape;                                 //     |
 extern const int  key_menu_enter;                                  // phares 3/7/98
 extern const int  key_strafeleft;
 extern const int  key_straferight;
-extern const int  key_fire;
+extern const int  key_jump;
 extern const int  key_use;
 extern const int  key_strafe;
 extern const int  key_speed;

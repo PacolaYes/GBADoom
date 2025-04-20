@@ -41,5 +41,6 @@
 void P_PlayerThink(player_t *player);
 void P_CalcHeight(player_t *player);
 void P_Thrust(player_t *player, angle_t angle, fixed_t move);
+void P_DoJump(player_t *player);
 
 #endif  /* __P_USER__ */

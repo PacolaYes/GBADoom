@@ -267,11 +267,16 @@ static void P_DeathThink (player_t* player)
   else if (player->damagecount)
     player->damagecount--;
 
-  if (player->cmd.buttons & BT_USE)
+  if (player->cmd.buttons & BT_JUMP)
     player->playerstate = PST_REBORN;
 
   }
 
+// P_DoJump !! -pac
+void P_DoJump(player_t* player)
+{
+  player->mo->momz = 12*FRACUNIT; //temporary basic jump
+}
 
 //
 // P_PlayerThink
@@ -356,6 +361,20 @@ void P_PlayerThink (player_t* player)
     }
   else
     player->usedown = false;
+
+  if (cmd->buttons & BT_JUMP) // can we jump?
+  {
+    if (!player->jumpdown)
+    {
+      if (_g->onground)
+      {
+        P_DoJump(player);
+      }
+      player->jumpdown = true;
+    }
+  }
+  else
+    player->jumpdown = false;
 
   // cycle psprites
 

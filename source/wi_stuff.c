@@ -936,7 +936,7 @@ void WI_checkForAccelerate(void)
 
     if (_g->playeringame)
     {
-      if (player->cmd.buttons & BT_ATTACK)
+      if (player->cmd.buttons & BT_JUMP)
       {
         if (!player->attackdown)
           _g->acceleratestage = 1;

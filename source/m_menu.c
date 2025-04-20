@@ -876,7 +876,7 @@ boolean M_Responder (event_t* ev)
     if (_g->messageToPrint)
     {
         if (_g->messageNeedsInput == true &&
-                !(ch == ' ' || ch == 'n' || ch == 'y' || ch == key_escape || ch == key_fire || ch == key_enter)) // phares
+                !(ch == ' ' || ch == 'n' || ch == 'y' || ch == key_escape || ch == key_use || ch == key_enter)) // phares
             return false;
 
         _g->menuactive = _g->messageLastMenuActive;
@@ -984,7 +984,7 @@ boolean M_Responder (event_t* ev)
     }
 
 	//Allow being able to go back in menus ~Kippykip
-	if (ch == key_fire)                           // phares 3/7/98
+	if (ch == key_use)                           // phares 3/7/98
     {
 		//If the prevMenu == NULL (Such as main menu screen), then just get out of the menu altogether
 		if(_g->currentMenu->prevMenu == NULL)

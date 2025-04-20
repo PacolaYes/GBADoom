@@ -327,7 +327,7 @@ typedef struct mobj_s
 
 #define VIEWHEIGHT      (41*FRACUNIT)
 
-#define GRAVITY         FRACUNIT
+#define GRAVITY         FRACUNIT/2 // SRB2's gravity is 0.5 instead of 1, in 2.2 atleast
 #define MAXMOVE         (30*FRACUNIT)
 
 #define ONFLOORZ        INT_MIN

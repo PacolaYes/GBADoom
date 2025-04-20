@@ -488,8 +488,6 @@ static void CheckIWAD2(const unsigned char* iwad_data, const unsigned int iwad_l
 {
     const wadinfo_t* header = (const wadinfo_t*)iwad_data;
 
-    int ud=0,rg=0,sw=0,cm=0,sc=0;
-
     if (!(!strncmp(header->identification, "IWAD", 4)))
     {
         I_Error("CheckIWAD: IWAD tag not present");

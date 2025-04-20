@@ -1908,7 +1908,6 @@ void A_LoadShotgun2(player_t *player, pspdef_t *psp)
 void A_CloseShotgun2(player_t *player, pspdef_t *psp)
 {
   S_StartSound(player->mo, sfx_dbcls);
-  A_ReFire(player,psp);
 }
 
 

@@ -93,8 +93,8 @@ const int     key_menu_enter = KEYD_A;                                      // p
 const int     key_strafeleft = KEYD_L;
 const int     key_straferight = KEYD_R;
 //Match Doom II GBA retail controls ~ Kippykip
-const int     key_fire = KEYD_B; 
-const int     key_use = KEYD_A;
+const int     key_jump = KEYD_A; 
+const int     key_use = KEYD_B;
 const int     key_speed = KEYD_A;
 const int     key_escape = KEYD_START;                           // phares 4/13/98
 const int     key_enter = KEYD_A;
@@ -218,8 +218,8 @@ void G_BuildTiccmd(ticcmd_t* cmd)
     if (_g->gamekeydown[key_strafeleft])
         side -= sidemove[speed];
 
-    if (_g->gamekeydown[key_fire])
-        cmd->buttons |= BT_ATTACK;
+    if (_g->gamekeydown[key_jump])
+        cmd->buttons |= BT_JUMP;
 
     if (_g->gamekeydown[key_use])
     {
