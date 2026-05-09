@@ -11,21 +11,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v5
     
-    - name: get deutex
-      run: |
-        sudo apt update
-        sudo apt -y install deutex
+    - name: get dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: wine deutex
+        version: v1
     
     - name: build the wad
       run: |
         cd assets
-        make
-    
-    - name: get wine
-      uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: wine
-        version: v1
+        make DEUTEX=/usr/games/deutex
     
     - name: convert wad
       run: |
