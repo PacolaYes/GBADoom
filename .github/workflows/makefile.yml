@@ -11,9 +11,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v5
     
+    - name: get deutex
+      run: |
+        sudo apt update
+        sudo apt -y install deutex
+    
     - name: build the wad
       run: |
-        sudo apt -y install deutex
         cd assets
         make
     
