@@ -5,22 +5,13 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: devkitpro/devkitarm:latest
     
     steps:
     - name: Checkout
       uses: actions/checkout@v5
-
-    - name: install dkp-pacman
-      run: |
-        wget -U "dkp-apt" https://apt.devkitpro.org/install-devkitpro-pacman
-        chmod +x ./install-devkitpro-pacman
-        sudo ./install-devkitpro-pacman
-        sudo dkp-pacman -Syu
-
-    - name: install gba-dev
-      run: sudo dkp-pacman -S --confirm gba-dev
     
-    - name: get deutex
+    - name: get apt dependencies
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: wine deutex
