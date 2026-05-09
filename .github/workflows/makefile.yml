@@ -19,14 +19,13 @@ jobs:
     
     - name: build the wad
       run: |
-        echo $PATH
         cd assets
         make DEUTEX=/usr/games/deutex
     
     - name: convert wad
       run: |
         cd rom/GbaWadUtil
-        wine GbaWadUtil.exe -in ../../assets/srb2.wad -cfile ../source/iwad/srb2.c
+        wine-stable GbaWadUtil.exe -in ../../assets/srb2.wad -cfile ../source/iwad/srb2.c
 
     - name: build the rom
       run: |
