@@ -47,6 +47,7 @@ jobs:
     - name: build the rom
       run: |
         cd rom
+        ls source/iwad
         make -j $(nproc) TARGET=GBASRB2
     
 
