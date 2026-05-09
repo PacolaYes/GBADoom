@@ -50,4 +50,15 @@ jobs:
         cd rom
         make -j $(nproc) TARGET=GBASRB2
     
+    - name: upload nigthly build
+      uses: andelf/nightly-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: nigthly
+        name: "GBA SRB2 Nightly Release"
+        prerelease: true
+        body: "TODO: do something about this"
+        files: rom/GBASRB2.gba
+    
 
