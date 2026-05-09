@@ -33,7 +33,9 @@ jobs:
       if: steps.cache-wadutil.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/doomhack/GbaWadUtil.git && cd GbaWadUtil
-        sudo apt -y install qt5-qmake qt5-default
+        sudo apt update
+        sudo apt -y install qt6-qmake qt6-default
+
         qmake
         make -j $(nproc)
         sudo mv GbaWadUtil /usr/local/bin
