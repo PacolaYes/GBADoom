@@ -10,12 +10,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5
+
+    - name: allow i386 to be sure
+      run: sudo dpkg --add-architecture i386
     
     - name: get dependencies
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: wine deutex
-        version: v1
+        packages: wine64 wine32:i386 deutex
+        version: v1.0
     
     - name: build the wad
       run: |
