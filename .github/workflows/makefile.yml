@@ -10,12 +10,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v5
 
-    - name: install gba stuff
+    - name: install dkp-pacman
       run: |
         wget -U "dkp-apt" https://apt.devkitpro.org/install-devkitpro-pacman
         chmod +x ./install-devkitpro-pacman
         sudo ./install-devkitpro-pacman
-        sudo dkp-pacman -Syu --confirm gba-dev
+        sudo dkp-pacman -Syu
+
+    - name: install gba-dev
+      run: sudo dkp-pacman -S --confirm gba-dev
     
     - name: get deutex
       uses: awalsh128/cache-apt-pkgs-action@latest
