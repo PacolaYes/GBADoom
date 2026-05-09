@@ -19,6 +19,7 @@ jobs:
     
     - name: build the wad
       run: |
+        echo $PATH
         cd assets
         make DEUTEX=/usr/games/deutex
     
