@@ -11,11 +11,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v5
     
-    - name: get deutex
+    - name: get dependencies
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: deutex
-        version: v1.0
+        packages: deutex qtbase5-dev
+        version: v1
     
     - name: build the wad
       run: |
@@ -34,7 +34,7 @@ jobs:
       run: |
         git clone https://github.com/doomhack/GbaWadUtil.git && cd GbaWadUtil
         sudo apt update
-        sudo apt-get -y install qtbase5-dev qt5-qmake
+        sudo apt-get -y install qt5-qmake
 
         qmake
         make -j $(nproc)
