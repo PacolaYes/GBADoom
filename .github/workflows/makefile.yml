@@ -10,29 +10,41 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5
-
-    - name: allow i386 to be sure
-      run: sudo dpkg --add-architecture i386
     
-    - name: get dependencies
+    - name: get deutex
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: wine64 wine32:i386 deutex
+        packages: deutex
         version: v1.0
     
     - name: build the wad
       run: |
         cd assets
         make DEUTEX=/usr/games/deutex
+
+    - name: cache GbaWadUtil
+      id: cache-wadutil
+      uses: actions/cache@v5
+      with:
+        path: /usr/local/bin/GbaWadUtil
+        key: GbaWadUtil
+    
+    - name: compile GbaWadUtil
+      if: steps.cache-wadutil.outputs.cache-hit != 'true'
+      run: |
+        git clone https://github.com/doomhack/GbaWadUtil.git && cd GbaWadUtil
+        sudo apt -y install qt5-qmake qt5-default
+        qmake
+        make -j $(nproc)
+        sudo mv GbaWadUtil /usr/local/bin
     
     - name: convert wad
       run: |
-        cd rom/GbaWadUtil
-        wine-stable GbaWadUtil.exe -in ../../assets/srb2.wad -cfile ../source/iwad/srb2.c
+        GbaWadUtil -in assets/srb2.wad -cfile rom/source/iwad/srb2.c
 
     - name: build the rom
       run: |
         cd rom
-        make -j $(nrpoc) TARGET=GBASRB2
+        make -j $(nproc) TARGET=GBASRB2
     
 
