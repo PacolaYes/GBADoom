@@ -10,7 +10,32 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v5
 
-    - name: compile the rom
-      run: docker run -i -v $(pwd):$(pwd) -w $(pwd)/rom dkarm_base:local -c "make"
+    - name: install gba stuff
+      run: |
+        wget -U "dkp-apt" https://apt.devkitpro.org/install-devkitpro-pacman
+        chmod +x ./install-devkitpro-pacman
+        sudo ./install-devkitpro-pacman
+        sudo dkp-pacman -Syu --confirm gba-dev
+    
+    - name: get deutex
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: wine deutex
+        version: v1
+    
+    - name: build the wad
+      run: |
+        cd assets
+        make
+    
+    - name: convert wad
+      run: |
+        cd rom/GbaWadUtil
+        wine GbaWadUtil.exe -in ../../assets/srb2.wad -cfile ../source/iwad/srb2.c
+
+    - name: build the rom
+      run: |
+        cd rom
+        make -j $(nrpoc) TARGET=GBASRB2
     
 
