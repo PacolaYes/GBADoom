@@ -1,6 +1,11 @@
 name: Makefile CI
 
-on: [push]
+on:
+  push:
+    paths:
+      rom/
+      assets/
+  workflow_dispatch:
 
 jobs:
   build:
