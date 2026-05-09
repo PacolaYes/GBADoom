@@ -34,7 +34,7 @@ jobs:
       run: |
         git clone https://github.com/doomhack/GbaWadUtil.git && cd GbaWadUtil
         sudo apt update
-        sudo apt -y install qt6-qmake qt6-default
+        sudo apt-get -y install qt5-default qt5-qmake
 
         qmake
         make -j $(nproc)
