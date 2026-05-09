@@ -1,0 +1,16 @@
+name: Makefile CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: compile the rom
+      run: docker run -i -v $(pwd):$(pwd) -w $(pwd)/rom dkarm_base:local -c "make"
+    
+
