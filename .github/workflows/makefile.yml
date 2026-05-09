@@ -42,12 +42,12 @@ jobs:
     
     - name: convert wad
       run: |
+        mkdir -p rom/source/iwad
         GbaWadUtil -in assets/srb2.wad -cfile rom/source/iwad/srb2.c
 
     - name: build the rom
       run: |
         cd rom
-        ls source/iwad
         make -j $(nproc) TARGET=GBASRB2
     
 
