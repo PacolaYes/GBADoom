@@ -50,6 +50,12 @@ jobs:
         mkdir -p rom/source/iwad
         GbaWadUtil -in assets/srb2.wad -cfile rom/source/iwad/srb2.c
 
+    - name: downgrade devkitarm # as a bypass to the glitch that i dont know how to fix and is stupid and im also stupid since i cant fix it
+      run: |
+        wget -O devkitARM.tar.zst https://wii.leseratte10.de/devkitPro/devkitARM/r66%20%282025-05-05%29/devkitARM-r66-1-linux_x86_64.pkg.tar.zst
+        tar -xf devkitARM.tar.zst
+        mv ./opt/devkitpro/devkitARM/ $DEVKITARM
+
     - name: build the rom
       run: |
         cd rom
