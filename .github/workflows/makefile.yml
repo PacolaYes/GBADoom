@@ -19,7 +19,7 @@ jobs:
     - name: get dependencies
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: deutex qtbase5-dev
+        packages: deutex qtbase5-dev zstd
         version: v1
     
     - name: build the wad
